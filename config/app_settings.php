@@ -6,53 +6,57 @@ return [
     'sections' => [
         'app' => [
             'title' => 'General Settings',
-            'descriptions' => 'Application general settings.', // (optional)
             'icon' => 'fa fa-cog', // (optional)
 
             'inputs' => [
                 [
-                    'name' => 'app_name', // unique key for setting
-                    'type' => 'text', // type of input can be text, number, textarea, select, boolean, checkbox etc.
-                    'label' => 'App Name', // label for input
+                    'name' => 'tax_rate', // unique key for setting
+                    'type' => 'text',
+                    'label' => 'Tax rate (%)', // label for input
                     // optional properties
-                    'placeholder' => 'Application Name', // placeholder for input
+                    'min' => 0,
+                    'max' => 100,
+                    'placeholder' => 'Tax rate (%)', // placeholder for input
                     'class' => 'form-control', // override global input_class
                     'style' => '', // any inline styles
-                    'rules' => 'required|min:2|max:20', // validation rules for this input
-                    'value' => 'QCode', // any default value
-                    'hint' => 'You can set the app name here' // help block text for input
+                    'rules' => 'required|min:0|max:100', // validation rules for this input
+                    'value' => '21', // any default value
+                    'hint' => 'You can set the product tax rate here' // help block text for input
                 ],
-                [
-                    'name' => 'logo',
-                    'type' => 'image',
-                    'label' => 'Upload logo',
-                    'hint' => 'Must be an image and cropped in desired size',
-                    'rules' => 'image|max:500',
-                    'disk' => 'public', // which disk you want to upload
-                    'path' => 'app', // path on the disk,
-                    'preview_class' => 'thumbnail',
-                    'preview_style' => 'height:40px'
-                ]
-            ]
-        ],
-        'email' => [
-            'title' => 'Email Settings',
-            'descriptions' => 'How app email will be sent.',
-            'icon' => 'fa fa-envelope',
 
-            'inputs' => [
                 [
-                    'name' => 'from_email',
-                    'type' => 'email',
-                    'label' => 'From Email',
-                    'placeholder' => 'Application from email',
-                    'rules' => 'required|email',
+                    'name' => 'include_tax', // unique key for setting
+                    'type' => 'checkbox',
+                    'label' => 'Include tax into displayed prices', // label for input
+                    // optional properties
+                    'class' => 'form-control', // override global input_class
+                    'style' => '', // any inline styles
+                    'value' => '1', // any default value
                 ],
+
                 [
-                    'name' => 'from_name',
+                    'name' => 'global_discount', // unique key for setting
                     'type' => 'text',
-                    'label' => 'Email from Name',
-                    'placeholder' => 'Email from Name',
+                    'label' => 'Global discount for all products', // label for input
+                    // optional properties
+                    'min' => 0,
+                    'placeholder' => 'Global discount for all products', // placeholder for input
+                    'class' => 'form-control', // override global input_class
+                    'style' => '', // any inline styles
+                    'rules' => 'required|min:0', // validation rules for this input
+                    'value' => '0', // any default value
+                    'hint' => 'You can set the global product discount here' // help block text for input
+                ],
+
+                [
+                    'name' => 'global_discount_expressed_percent', // unique key for setting
+                    'type' => 'checkbox', 
+                    'label' => 'Global discount expressed in percent', // label for input
+                    // optional properties
+                    'class' => 'form-control', // override global input_class
+                    'style' => '', // any inline styles
+                    'value' => '0', // any default value
+                    'hint' => 'If unchecked, then the global discount value is a currency value'
                 ]
             ]
         ]
@@ -62,7 +66,7 @@ return [
     'url' => 'settings',
 
     // Any middleware you want to run on above route
-    'middleware' => [],
+    'middleware' => ['auth'],
 
     // View settings
     'setting_page_view' => 'app_settings::settings_page',
@@ -83,7 +87,7 @@ return [
 
     // Submit button
     'submit_btn_text' => 'Save Settings',
-    'submit_success_message' => 'Settings has been saved.',
+    'submit_success_message' => 'Settings have been saved.',
 
     // Remove any setting which declaration removed later from sections
     'remove_abandoned_settings' => false,
