@@ -1,3 +1,14 @@
+## About Project
+
+This is a simple product catalog application which has two parts: admin panel and product list.
+
+An admin can create/edit/delete products and other users can view them.
+
+
+## Made with:
+
+
+
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">
