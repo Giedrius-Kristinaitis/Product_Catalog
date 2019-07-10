@@ -1,3 +1,28 @@
+## About Project
+
+This is a simple product catalog application which has two parts: admin panel and product list.
+
+An admin can create/edit/delete products and other users can view them.
+
+To test the application make sure to run database migrations:
+```
+php artisan migrate
+```
+And then seed the database to insert a test admin account:
+```
+php artisan db:seed
+```
+After doing these steps you will be able to login into the application with an admin account:
+```
+email: admin@admin.com
+password: password
+```
+
+
+## Made with:
+
+
+
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">
