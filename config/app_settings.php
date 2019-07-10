@@ -50,7 +50,7 @@ return [
 
                 [
                     'name' => 'global_discount_expressed_percent', // unique key for setting
-                    'type' => 'checkbox', 
+                    'type' => 'checkbox',
                     'label' => 'Global discount expressed in percent', // label for input
                     // optional properties
                     'class' => 'form-control', // override global input_class
@@ -66,7 +66,7 @@ return [
     'url' => 'settings',
 
     // Any middleware you want to run on above route
-    'middleware' => ['auth'],
+    'middleware' => ['auth', 'verify.admin'],
 
     // View settings
     'setting_page_view' => 'app_settings::settings_page',
