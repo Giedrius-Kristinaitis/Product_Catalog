@@ -4,6 +4,20 @@ This is a simple product catalog application which has two parts: admin panel an
 
 An admin can create/edit/delete products and other users can view them.
 
+To test the application make sure to run database migrations:
+```
+php artisan migrate
+```
+And then seed the database to insert a test admin account:
+```
+php artisan db:seed
+```
+After doing these steps you will be able to login into the application with an admin account:
+```
+email: admin@admin.com
+password: password
+```
+
 
 ## Made with:
 
