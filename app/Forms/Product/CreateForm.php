@@ -27,10 +27,10 @@ class CreateForm extends Form
                     'description.required' => 'The description field is required!'
                 ]
             ])
-            ->add('picture', 'file', [
+            ->add('image', 'file', [
                 'rules' => 'required',
                 'error_messages' => [
-                    'picture.required' => 'You must upload an image that shows the product!'
+                    'image.required' => 'You must upload an image that shows the product!'
                 ]
             ])
             ->add('enabled', 'checkbox', [
@@ -44,15 +44,15 @@ class CreateForm extends Form
                     'sku.required' => 'The SKU field is required!'
                 ]
             ])
-            ->add('basePrice', 'number', [
+            ->add('base_price', 'number', [
                 'min' => 0,
                 'step' => 'any',
                 'rules' => 'required|min:0',
                 'error_messages' => [
-                    'basePrice.required' => 'The base price field is required!'
+                    'base_price.required' => 'The base price field is required!'
                 ]
             ])
-            ->add('specialPrice', 'number', [
+            ->add('special_price', 'number', [
                 'min' => 0,
                 'step' => 'any',
                 'placeholder' => 'Leave empty if the product has no special price'
