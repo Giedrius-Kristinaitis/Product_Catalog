@@ -2,7 +2,6 @@
 
 namespace App\Settings;
 
-use phpDocumentor\Reflection\Types\Mixed_;
 use QCod\AppSettings\Setting\AppSettings;
 
 class AppSettingProvider implements SettingProvider
@@ -12,9 +11,9 @@ class AppSettingProvider implements SettingProvider
      * Gets an app setting
      *
      * @param string $name Name of the setting
-     * @return Mixed_
+     * @return mixed
      */
-    public function getSetting(string $name): Mixed_
+    public function getSetting(string $name)
     {
         return AppSettings::get($name);
     }

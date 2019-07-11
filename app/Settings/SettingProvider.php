@@ -2,8 +2,6 @@
 
 namespace App\Settings;
 
-use phpDocumentor\Reflection\Types\Mixed_;
-
 interface SettingProvider
 {
 
@@ -11,7 +9,7 @@ interface SettingProvider
      * Gets a setting
      *
      * @param string $name Name of the setting
-     * @return Mixed_
+     * @return mixed
      */
-    public function getSetting(string $name): Mixed_;
+    public function getSetting(string $name);
 }
