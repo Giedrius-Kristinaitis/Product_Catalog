@@ -74,7 +74,7 @@ return [
     'middleware' => ['auth', 'verify.admin'],
 
     // View settings
-    'setting_page_view' => 'app_settings::settings_page',
+    'setting_page_view' => 'settings',
     'flash_partial' => 'app_settings::_flash',
 
     // Setting section class setting
