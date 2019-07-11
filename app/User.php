@@ -46,13 +46,13 @@ class User extends Authenticatable
     }
 
     /**
-     *
+     * Checks if the user has the specified role
      *
      * @param string $roleName Name of the role to check
      *
      * @return bool true if the user has the specified role
      */
-    public function hasRole(string $roleName) : bool
+    public function hasRole(string $roleName): bool
     {
         foreach ($this->roles as $role)
         {
