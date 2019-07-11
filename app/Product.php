@@ -12,6 +12,24 @@ class Product extends Model
     use HasImageUploads;
 
     /**
+     * Model fields that store the uploaded image's url
+     *
+     * @var array
+     */
+    protected static $imageFields = [
+        'image'
+    ];
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'description', 'image', 'enabled', 'sku', 'base_price', 'special_price'
+    ];
+
+    /**
      * Gets the product's reviews
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
