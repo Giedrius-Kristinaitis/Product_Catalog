@@ -18,13 +18,13 @@ class ProductController extends Controller
     /**
      * Show the product creation page
      *
-     * @param Kris\LaravelFormBuilder\FormBuilder $formBuilder
+     * @param Kris\LaravelFormBuilder\FormBuilder $form_builder
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function create(FormBuilder $formBuilder): Renderable
+    public function create(FormBuilder $form_builder): Renderable
     {
-        $form = $formBuilder->create('App\Forms\Product\CreateForm', [
+        $form = $form_builder->create('App\Forms\Product\CreateForm', [
             'method' => 'POST',
             'url' => route('product.store')
         ]);
