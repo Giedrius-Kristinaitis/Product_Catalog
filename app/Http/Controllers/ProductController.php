@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Repository\ProductRepositoryInterface;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Kris\LaravelFormBuilder\FormBuilder;
 use Kris\LaravelFormBuilder\FormBuilderTrait;
-use App\Product;
 use App\Forms\Product\CreateForm;
 use Illuminate\Http\Request;
 
@@ -16,11 +16,25 @@ class ProductController extends Controller
     use FormBuilderTrait;
 
     /**
+     * @var ProductRepositoryInterface
+     */
+    private $product_repository;
+
+    /**
+     * ProductController constructor.
+     * @param ProductRepositoryInterface $product_repository
+     */
+    public function __construct(ProductRepositoryInterface $product_repository)
+    {
+        $this->product_repository = $product_repository;
+    }
+
+    /**
      * Show the product creation page
      *
-     * @param Kris\LaravelFormBuilder\FormBuilder $form_builder
+     * @param FormBuilder $form_builder
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return Renderable
      */
     public function create(FormBuilder $form_builder): Renderable
     {
@@ -42,7 +56,7 @@ class ProductController extends Controller
     {
         $this->redirectIfInvalidForm();
 
-        Product::create($request->all());
+        $this->product_repository->create($request->all());
 
         return redirect()->route('products');
     }
