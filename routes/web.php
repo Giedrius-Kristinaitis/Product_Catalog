@@ -18,3 +18,5 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+
+Route::get('/product/create', 'ProductController@create')->middleware(['auth', 'verify.admin'])->name('product.create');
