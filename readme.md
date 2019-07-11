@@ -10,7 +10,9 @@ php artisan migrate
 ```
 And then seed the database to insert a test admin account:
 ```
-php artisan db:seed
+php artisan db:seed --class=AccountSeeder
+php artisan db:seed --class=AccountRoleSeeder
+php artisan db:seed --class=AdminRoleSeeder
 ```
 After doing these steps you will be able to login into the application with an admin account:
 ```
