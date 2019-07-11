@@ -40,11 +40,19 @@ class ProductController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $form = $this->form(CreateForm::class);
-        $form->redirectIfNotValid();
+        $this->redirectIfInvalidForm();
 
-        Product::create($form->getFieldValues());
+        Product::create($request->all());
 
         return redirect()->route('products');
+    }
+
+    /**
+     * Validates product form and if it is bad, creates a redirect
+     */
+    private function redirectIfInvalidForm(): void
+    {
+        $form = $this->form(CreateForm::class);
+        $form->redirectIfNotValid();
     }
 }
