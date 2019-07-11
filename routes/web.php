@@ -12,9 +12,9 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('products');
+})->name('products');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
