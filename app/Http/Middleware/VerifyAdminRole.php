@@ -19,7 +19,7 @@ class VerifyAdminRole
         $user = Auth::user();
 
         if (!$user->hasRole('admin')) {
-            return redirect('products');
+            return redirect('/');
         }
 
         return $next($request);
