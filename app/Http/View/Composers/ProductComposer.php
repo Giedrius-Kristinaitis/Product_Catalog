@@ -5,6 +5,7 @@ namespace App\Http\View\Composers;
 use App\Product;
 use App\Product\Price\PriceCalculator;
 use App\Repository\ProductRepositoryInterface;
+use App\Utils\Url\UrlGeneratorInterface;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
 
@@ -21,16 +22,22 @@ class ProductComposer
     protected $product_repository;
 
     /**
+     * @var UrlGeneratorInterface
+     */
+    protected $url_generator;
+
+    /**
      * Create a new profile composer.
      *
      * @param PriceCalculator $price_calculator
      * @param ProductRepositoryInterface $product_repository
-     * @return void
+     * @param UrlGeneratorInterface $url_generator
      */
-    public function __construct(PriceCalculator $price_calculator, ProductRepositoryInterface $product_repository)
+    public function __construct(PriceCalculator $price_calculator, ProductRepositoryInterface $product_repository, UrlGeneratorInterface $url_generator)
     {
         $this->price_calculator = $price_calculator;
         $this->product_repository = $product_repository;
+        $this->url_generator = $url_generator;
     }
 
     /**
@@ -41,11 +48,46 @@ class ProductComposer
      */
     public function compose(View $view): void
     {
+        $view->with('products', $this->getModifiedProducts());
+    }
+
+    /**
+     * Modifies the given products by adding calculated price to them and generating
+     * public image url
+     *
+     * @return Collection
+     */
+    protected function getModifiedProducts(): Collection
+    {
         $products = $this->product_repository->all();
 
         $this->addCalculatedPriceToAllProducts($products);
+        $this->createImageUrlForAllProducts($products);
 
-        $view->with('products', $products);
+        return $products;
+    }
+
+    /**
+     * Creates image urls for the specified products
+     *
+     * @param Collection $products
+     */
+    protected function createImageUrlForAllProducts(Collection $products): void
+    {
+        foreach ($products as $product)
+        {
+            $this->createImageUrlForProduct($product);
+        }
+    }
+
+    /**
+     * Creates image url for a product
+     *
+     * @param Product $product
+     */
+    private function createImageUrlForProduct(Product $product): void
+    {
+        $product->image = $this->url_generator->generatePublicUrl($product->image);
     }
 
     /**
@@ -53,7 +95,7 @@ class ProductComposer
      *
      * @param Collection $products
      */
-    private function addCalculatedPriceToAllProducts(Collection $products): void
+    protected function addCalculatedPriceToAllProducts(Collection $products): void
     {
         foreach ($products as $product)
         {
@@ -68,6 +110,6 @@ class ProductComposer
      */
     private function addCalculatedPriceToProduct(Product $product): void
     {
-        $product->calculated_price = $this->price_calculator->calculateProductPrice($product->base_price);
+        $product->calculated_price = $this->price_calculator->calculateProductPrice($product);
     }
 }

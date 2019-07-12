@@ -5,7 +5,8 @@ namespace App\Http\View\Composers;
 use App\Product;
 use App\Product\Price\PriceCalculator;
 use App\Repository\ProductRepositoryInterface;
-use Illuminate\View\View;
+use App\Utils\Url\UrlGeneratorInterface;
+use Illuminate\Support\Collection;
 
 class ProductWithRatingComposer extends ProductComposer
 {
@@ -14,35 +15,34 @@ class ProductWithRatingComposer extends ProductComposer
      *
      * @param PriceCalculator $price_calculator
      * @param ProductRepositoryInterface $product_repository
+     * @param UrlGeneratorInterface $url_generator
      */
-    public function __construct(PriceCalculator $price_calculator, ProductRepositoryInterface $product_repository)
+    public function __construct(PriceCalculator $price_calculator, ProductRepositoryInterface $product_repository, UrlGeneratorInterface $url_generator)
     {
-        parent::__construct($price_calculator, $product_repository);
+        parent::__construct($price_calculator, $product_repository, $url_generator);
     }
 
     /**
-     * Bind data to the view.
+     * Modifies the given products by adding calculated price to them, generating
+     * public image url and adding rating value
      *
-     * @param  View  $view
-     * @return void
+     * @return Collection
      */
-    public function compose(View $view): void
+    public function getModifiedProducts(): Collection
     {
-        parent::compose($view);
+        $modified_products = parent::getModifiedProducts();
 
-        $products = $view->gatherData();
+        $this->addRatingToAllProducts($modified_products);
 
-        $this->addRatingToAllProducts($products);
-
-        $view->with('products', $products);
+        return $modified_products;
     }
 
     /**
      * Adds rating value to all products
      *
-     * @param array $products
+     * @param Collection $products
      */
-    private function addRatingToAllProducts(array $products): void
+    private function addRatingToAllProducts(Collection $products): void
     {
         foreach ($products as $product)
         {
