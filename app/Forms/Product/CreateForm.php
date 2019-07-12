@@ -68,12 +68,12 @@ class CreateForm extends Form
                     'base_price.required' => 'The base price field is required!'
                 ]
             ])
-            ->add('special_price', 'number', [
+            ->add('discount', 'number', [
                 'attr' => [
                     'class' => 'form-control',
                     'min' => 0,
                     'step' => 'any',
-                    'placeholder' => 'Leave empty if the product has no special price'
+                    'placeholder' => 'Leave empty if the product has no discount'
                 ]
             ])
             ->add('submit', 'submit', [

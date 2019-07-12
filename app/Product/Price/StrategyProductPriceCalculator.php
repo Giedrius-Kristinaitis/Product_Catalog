@@ -71,7 +71,7 @@ class StrategyProductPriceCalculator implements PriceCalculator
         }
         else
         {
-            return $product->special_price ?? 0;
+            return $product->discount ?? 0;
         }
     }
 

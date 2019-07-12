@@ -28,6 +28,6 @@ class TaxedDiscountPriceCalculationStrategy extends DiscountPriceCalculationStra
      */
     public function calculatePrice(float $base_price): float
     {
-        return max(0, $base_price * (1 + $this->tax_rate / 100) - $this->discount);
+        return max(0, ($base_price - $this->discount) * (1 + $this->tax_rate / 100));
     }
 }

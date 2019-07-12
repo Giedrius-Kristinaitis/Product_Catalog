@@ -28,7 +28,7 @@
                     <td>{{ $product->enabled }}</td>
                     <td>{{ $product->sku }}</td>
                     <td>{{ number_format($product->base_price, 2) }} &euro;</td>
-                    <td>{{ number_format($product->special_price, 2) }} &euro;</td>
+                    <td>{{ number_format($product->discount, 2) }} &euro;</td>
                     <td>{{ number_format($product->calculated_price, 2) }} &euro;</td>
                 </tr>
             @endforeach
