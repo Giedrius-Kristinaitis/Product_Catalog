@@ -69,4 +69,14 @@ class ProductController extends Controller
         $form = $this->form(CreateForm::class);
         $form->redirectIfNotValid();
     }
+
+    /**
+     * Shows all products in a grid
+     *
+     * @return Renderable
+     */
+    public function viewAll(): Renderable
+    {
+        return view('products');
+    }
 }
