@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <a class="btn btn-primary" href="{{ route('product.create') }}" role="button">Create product</a>
-        <span id="delete-button" class="btn btn-danger invisible ml-3" role="button">Delete selected</span>
+        <a href="#" onclick="return false;" id="delete-button" class="btn btn-danger invisible ml-3" role="button">Delete selected</a>
     </div>
 
     <h3>Products</h3>
