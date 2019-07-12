@@ -25,7 +25,7 @@
                 <tr>
                     <td><img src="{{ $product->image }}" alt="{{ $product->name }} icon" width="128"/></td>
                     <td>{{ $product->name }}</td>
-                    <td>{{ $product->enabled }}</td>
+                    <td>{{ $product->enabled ? 'Yes' : 'No' }}</td>
                     <td>{{ $product->sku }}</td>
                     <td>{{ number_format($product->base_price, 2) }} &euro;</td>
                     <td>{{ number_format($product->discount, 2) }} &euro;</td>
