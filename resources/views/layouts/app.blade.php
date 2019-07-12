@@ -10,6 +10,11 @@
     <title>{{ config('app.name', 'Catalog') }}</title>
 
     <!-- Scripts -->
+    <!-- Create a global JavaScript constant to access the app's base url anywhere -->
+    <script type="text/javascript">
+        var APP_URL = '{!! url('/') !!}';
+    </script>
+
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/product.js') }}" defer></script>
 
