@@ -2,8 +2,6 @@
 
 namespace App\Settings;
 
-use QCod\AppSettings\Setting\AppSettings;
-
 class AppSettingProvider implements SettingProvider
 {
 
@@ -15,6 +13,6 @@ class AppSettingProvider implements SettingProvider
      */
     public function getSetting(string $name)
     {
-        return AppSettings::get($name);
+        return setting($name);
     }
 }
