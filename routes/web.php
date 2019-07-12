@@ -11,11 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('products');
-})->name('products');
-
 Auth::routes();
+
+Route::get('/', 'ProductController@viewAll')->name('products');
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
