@@ -21,7 +21,7 @@ interface ProductRepositoryInterface
     /**
      * Gets product's rating
      * @param int $id
-     * @return float
+     * @return mixed
      */
-    public function getRating(int $id): float;
+    public function getRating(int $id);
 }
