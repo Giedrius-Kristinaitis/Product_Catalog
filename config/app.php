@@ -177,6 +177,7 @@ return [
         App\Providers\ViewServiceProvider::class,
         App\Providers\ProductServiceProvider::class,
         App\Providers\ReviewServiceProvider::class,
+        App\Providers\UrlServiceProvider::class,
 
     ],
 
