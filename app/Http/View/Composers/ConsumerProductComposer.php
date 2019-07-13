@@ -33,8 +33,30 @@ class ConsumerProductComposer extends ProductComposer
         $modified_products = parent::getModifiedProducts();
 
         $this->addRatingToAllProducts($modified_products);
+        $this->addNonDiscountCalculatedPriceToAllProducts($modified_products);
 
         return $modified_products;
+    }
+
+    /**
+     * Adds calculated price to products without including discount
+     * @param Collection $products
+     */
+    private function addNonDiscountCalculatedPriceToAllProducts(Collection $products): void
+    {
+        foreach ($products as $product)
+        {
+            $this->addNonDiscountCalculatedPriceToProduct($products);
+        }
+    }
+
+    /**
+     * Adds calculated price to a single product without including discount
+     * @param Product $product
+     */
+    private function addNonDiscountCalculatedPriceToProduct(Product $product): void
+    {
+        $product->calculated_price_no_discount = $this->price_calculator->calculateProductPriceWithoutDiscount($product);
     }
 
     /**

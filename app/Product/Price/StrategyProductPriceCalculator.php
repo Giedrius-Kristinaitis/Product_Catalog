@@ -22,6 +22,19 @@ class StrategyProductPriceCalculator implements PriceCalculator
     }
 
     /**
+     * Calculates product's price without it's discount
+     *
+     * @param Product $product
+     * @return float
+     */
+    public function calculateProductPriceWithoutDiscount(Product $product): float
+    {
+        $calculation_strategy = new TaxedDiscountPriceCalculationStrategy(0, $this->settings->getSetting('tax_rate'));
+
+        return $calculation_strategy->calculatePrice($product->base_price);
+    }
+
+    /**
      * Calculates product's price
      *
      * @param Product $product

@@ -13,4 +13,12 @@ interface PriceCalculator
      * @return float
      */
     public function calculateProductPrice(Product $product): float;
+
+    /**
+     * Calculates product's price without it's discount
+     *
+     * @param Product $product
+     * @return float
+     */
+    public function calculateProductPriceWithoutDiscount(Product $product): float;
 }
