@@ -42,7 +42,7 @@ class CreateForm extends Form
                 ]
             ])
             ->add('enabled', 'checkbox', [
-                'checked' => 'checked'
+                'default_value' => 0
             ])
             ->add('sku', 'number', [
                 'attr' => [
@@ -76,8 +76,6 @@ class CreateForm extends Form
                     'placeholder' => 'Leave empty if the product has no discount'
                 ]
             ])
-            ->add('submit', 'submit', [
-                'value' => 'Create'
-            ]);
+            ->add('submit', 'submit');
     }
 }
