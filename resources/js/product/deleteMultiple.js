@@ -1,15 +1,26 @@
 const checkboxes = document.getElementsByClassName('deletion-checkbox');
 const deleteButton = document.getElementById('delete-button');
+let checkedCheckboxes = [];
 
 addCheckboxEventListeners(checkboxes);
-
 deleteButton.addEventListener('click', deleteButtonCallback);
+
+/**
+ * Adds event listener to multiple checkboxes
+ *
+ * @param checkboxes
+ */
+function addCheckboxEventListeners(checkboxes) {
+    for (let i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].addEventListener('change', checkboxEventListenerCallback);
+    }
+}
 
 /**
  * Function that gets called when the deletion button is clicked
  */
 function deleteButtonCallback() {
-    const productsToDelete = getProductsToDelete(checkboxes);
+    const productsToDelete = getProductsToDelete(checkedCheckboxes);
     sendDeleteRequest(productsToDelete);
 }
 
@@ -62,49 +73,42 @@ function getProductsToDelete(checkboxes) {
     const productsToDelete = [];
 
     for (let i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].checked) {
-            productsToDelete.push(checkboxes[i].getAttribute('product'));
-        }
+        productsToDelete.push(checkboxes[i].getAttribute('product'));
     }
 
     return productsToDelete;
 }
 
 /**
- * Adds event listener to multiple checkboxes
- *
- * @param checkboxes
+ * Function that gets called when a checkbox changes from checked to unchecked or vice versa
  */
-function addCheckboxEventListeners(checkboxes) {
-    for (let i = 0; i < checkboxes.length; i++) {
-        checkboxes[i].addEventListener('change', checkboxEventListenerCallback);
+function checkboxEventListenerCallback(event) {
+    addOrRemoveFromCheckedList(event.target);
+    changeDeleteButtonVisibility();
+}
+
+/**
+ * Based on whether the checkbox is checked or not, adds or removes it from the checked checkbox list
+ *
+ * @param checkbox
+ */
+function addOrRemoveFromCheckedList(checkbox) {
+    if (checkbox.checked) {
+        checkedCheckboxes.push(checkbox);
+    } else {
+        checkedCheckboxes = checkedCheckboxes.filter(x => x.checked);
     }
 }
 
 /**
- * Function that gets called when a checkbox changes from checked to unchecked or vice versa
+ * Changes the delete button's visibility based on whether any checkboxes are checked or not
  */
-function checkboxEventListenerCallback() {
-    if (anyCheckboxChecked(checkboxes)) {
+function changeDeleteButtonVisibility() {
+    if (checkedCheckboxes.length > 0) {
         showDeleteButton();
     } else {
         hideDeleteButton();
     }
-}
-
-/**
- * Checks if any of the given checkboxes is checked
- *
- * @param checkboxes
- */
-function anyCheckboxChecked(checkboxes) {
-    for (let i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].checked) {
-            return true;
-        }
-    }
-
-    return false;
 }
 
 /**
