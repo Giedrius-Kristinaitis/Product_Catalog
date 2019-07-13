@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Forms\Product\EditForm;
 use App\Repository\ProductRepositoryInterface;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
@@ -43,7 +44,27 @@ class ProductController extends Controller
             'url' => route('product.store')
         ]);
 
-        return view('product.create', compact('form'));
+        return view('product.modify', compact('form'));
+    }
+
+    /**
+     * Gets product's editing view
+     *
+     * @param int $id
+     * @param FormBuilder $form_builder
+     * @return Renderable
+     */
+    public function edit($id, FormBuilder $form_builder): Renderable
+    {
+        $existing_product = $this->product_repository->getById($id);
+
+        $form = $form_builder->create('App\Forms\Product\EditForm', [
+            'method' => 'PUT',
+            'url' => route('product.update'),
+            'model' => $existing_product
+        ]);
+
+        return view('product.modify', compact('form'));
     }
 
     /**
@@ -54,7 +75,9 @@ class ProductController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $this->redirectIfInvalidForm();
+        $form = $this->form(CreateForm::class);
+
+        $form->redirectIfNotValid();
 
         $this->product_repository->create($request->all());
 
@@ -62,12 +85,22 @@ class ProductController extends Controller
     }
 
     /**
-     * Validates product form and if it is bad, creates a redirect
+     * Stores a product in the database
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    private function redirectIfInvalidForm(): void
+    public function update(Request $request): RedirectResponse
     {
-        $form = $this->form(CreateForm::class);
+        $form = $this->form(EditForm::class);
+
         $form->redirectIfNotValid();
+
+        $request_data = $request->all();
+
+        $this->product_repository->update($request_data['id'], $request_data);
+
+        return redirect()->route('dashboard');
     }
 
     /**
@@ -81,16 +114,6 @@ class ProductController extends Controller
     }
 
     /**
-     * Gets product's editing view
-     *
-     * @return Renderable
-     */
-    public function edit($id): Renderable
-    {
-        
-    }
-
-    /**
      * Deletes a single product
      *
      * @param int $id
@@ -100,7 +123,7 @@ class ProductController extends Controller
     {
         $this->product_repository->delete($id);
 
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard')->with('success', 'Successfully deleted');
     }
 
     /**
