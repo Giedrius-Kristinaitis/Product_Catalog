@@ -58,3 +58,5 @@
     </table>
 </div>
 @endsection
+
+<script src="{{ asset('js/product/deleteMultiple.js') }}" defer></script>

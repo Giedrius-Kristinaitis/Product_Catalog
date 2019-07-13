@@ -1,9 +1,20 @@
-const checkboxes = document.getElementsByClassName('deletion-checkbox');
-const deleteButton = document.getElementById('delete-button');
+let checkboxes;
+let deleteButton;
 let checkedCheckboxes = [];
 
-addCheckboxEventListeners(checkboxes);
-deleteButton.addEventListener('click', deleteButtonCallback);
+window.addEventListener('load', function () {
+    initializeDOMElements();
+    addCheckboxEventListeners(checkboxes);
+    deleteButton.addEventListener('click', deleteButtonCallback);
+});
+
+/**
+ * Initializes DOM elements
+ */
+function initializeDOMElements() {
+    checkboxes = document.getElementsByClassName('deletion-checkbox');
+    deleteButton = document.getElementById('delete-button');
+}
 
 /**
  * Adds event listener to multiple checkboxes

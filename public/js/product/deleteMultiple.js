@@ -93,16 +93,28 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var checkboxes = document.getElementsByClassName('deletion-checkbox');
-var deleteButton = document.getElementById('delete-button');
+var checkboxes;
+var deleteButton;
 var checkedCheckboxes = [];
-addCheckboxEventListeners(checkboxes);
-deleteButton.addEventListener('click', deleteButtonCallback);
+window.addEventListener('load', function () {
+  initializeDOMElements();
+  addCheckboxEventListeners(checkboxes);
+  deleteButton.addEventListener('click', deleteButtonCallback);
+});
+/**
+ * Initializes DOM elements
+ */
+
+function initializeDOMElements() {
+  checkboxes = document.getElementsByClassName('deletion-checkbox');
+  deleteButton = document.getElementById('delete-button');
+}
 /**
  * Adds event listener to multiple checkboxes
  *
  * @param checkboxes
  */
+
 
 function addCheckboxEventListeners(checkboxes) {
   for (var i = 0; i < checkboxes.length; i++) {
@@ -238,25 +250,14 @@ function hideDeleteButton() {
 
 /***/ }),
 
-/***/ "./resources/js/product/product.js":
-/*!*****************************************!*\
-  !*** ./resources/js/product/product.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(/*! ./deleteMultiple */ "./resources/js/product/deleteMultiple.js");
-
-/***/ }),
-
 /***/ 1:
-/*!***********************************************!*\
-  !*** multi ./resources/js/product/product.js ***!
-  \***********************************************/
+/*!******************************************************!*\
+  !*** multi ./resources/js/product/deleteMultiple.js ***!
+  \******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\Giedrius\Desktop\Catalog\resources\js\product\product.js */"./resources/js/product/product.js");
+module.exports = __webpack_require__(/*! C:\Users\Giedrius\Desktop\Catalog\resources\js\product\deleteMultiple.js */"./resources/js/product/deleteMultiple.js");
 
 
 /***/ })
