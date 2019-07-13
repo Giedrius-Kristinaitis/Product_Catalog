@@ -17,6 +17,14 @@ Route::get('/', 'ProductController@viewAll')->name('products');
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
-Route::get('/product/create', 'ProductController@create')->middleware(['auth', 'verify.admin'])->name('product.create');
+Route::middleware(['auth', 'verify.admin'])->group(function () {
+    Route::get('/product', 'ProductController@create')->name('product.create');
 
-Route::post('/product/store', 'ProductController@store')->middleware(['auth', 'verify.admin'])->name('product.store');
+    Route::post('/product', 'ProductController@store')->name('product.store');
+
+    Route::delete('/product/multiple', 'ProductController@deleteMultiple');
+
+    Route::delete('/product/{id}', 'ProductController@delete')->name('product.delete');
+
+    Route::put('/product/{id}', function ($id) {})->name('product.edit');
+});

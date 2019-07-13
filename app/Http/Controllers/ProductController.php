@@ -58,7 +58,7 @@ class ProductController extends Controller
 
         $this->product_repository->create($request->all());
 
-        return redirect()->route('products');
+        return redirect()->route('dashboard');
     }
 
     /**
@@ -78,5 +78,39 @@ class ProductController extends Controller
     public function viewAll(): Renderable
     {
         return view('products');
+    }
+
+    /**
+     * Deletes a single product
+     *
+     * @param int $id
+     * @return RedirectResponse
+     */
+    public function delete(int $id): RedirectResponse
+    {
+        $this->product_repository->delete($id);
+
+        return redirect()->route('dashboard');
+    }
+
+    /**
+     * Deletes multiple products at once
+     *
+     * @param Request $request
+     */
+    public function deleteMultiple(Request $request): void
+    {
+        $this->product_repository->deleteMultiple($this->getProductIds($request));
+    }
+
+    /**
+     * Gets product ids from the given request's body
+     *
+     * @param Request $request
+     * @return array
+     */
+    private function getProductIds(Request $request): array
+    {
+        return $request->json()->all();
     }
 }
