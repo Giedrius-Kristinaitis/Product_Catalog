@@ -81,6 +81,16 @@ class ProductController extends Controller
     }
 
     /**
+     * Gets product's editing view
+     *
+     * @return Renderable
+     */
+    public function edit($id): Renderable
+    {
+        
+    }
+
+    /**
      * Deletes a single product
      *
      * @param int $id

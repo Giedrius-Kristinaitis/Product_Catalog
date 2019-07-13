@@ -26,5 +26,5 @@ Route::middleware(['auth', 'verify.admin'])->group(function () {
 
     Route::delete('/product/{id}', 'ProductController@delete')->name('product.delete');
 
-    Route::put('/product/{id}', function ($id) {})->name('product.edit');
+    Route::put('/product/{id}', 'ProductController@edit')->name('product.edit');
 });
