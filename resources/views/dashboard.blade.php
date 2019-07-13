@@ -37,10 +37,20 @@
                     <td>{{ number_format($product->discount, 2) }} &euro;</td>
                     <td>{{ number_format($product->calculated_price, 2) }} &euro;</td>
                     <td>
-                        <a class="btn btn-primary" href="{{ route('product.edit', ['id' => $product->id]) }}" role="button">Edit</a>
+                        <form action="/product/{{ $product->id }}" method="POST">
+                            @csrf
+                            @method('PUT')
+
+                            <input class="btn btn-primary" role="button" type="submit" name="submit" value="Edit"/>
+                        </form>
                     </td>
                     <td>
-                        <a class="btn btn-danger" href="{{ route('product.delete', ['id' => $product->id]) }}" role="button">Delete</a>
+                        <form action="/product/{{ $product->id }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+
+                            <input class="btn btn-danger" role="button" type="submit" name="submit" value="Delete"/>
+                        </form>
                     </td>
                 </tr>
             @endforeach
