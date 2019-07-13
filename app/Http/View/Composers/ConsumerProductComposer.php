@@ -8,10 +8,10 @@ use App\Repository\ProductRepositoryInterface;
 use App\Utils\Url\UrlGeneratorInterface;
 use Illuminate\Support\Collection;
 
-class ProductWithRatingComposer extends ProductComposer
+class ConsumerProductComposer extends ProductComposer
 {
     /**
-     * ProductWithRatingComposer constructor.
+     * ConsumerProductComposer constructor.
      *
      * @param PriceCalculator $price_calculator
      * @param ProductRepositoryInterface $product_repository
