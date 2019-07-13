@@ -2,6 +2,12 @@
 
 @section('content')
 <div class="container">
+    @if (\Illuminate\Support\Facades\Session::has('success'))
+        <div class="alert alert-success" role="alert">
+            {{ \Illuminate\Support\Facades\Session::get('success') }}
+        </div>
+    @endif
+
     <div class="row justify-content-center">
         <a class="btn btn-primary" href="{{ route('product.create') }}" role="button">Create product</a>
         <a href="#" onclick="return false;" id="delete-button" class="btn btn-danger invisible ml-3" role="button">Delete selected</a>
