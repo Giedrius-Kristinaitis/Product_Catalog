@@ -46,7 +46,7 @@ class ConsumerProductComposer extends ProductComposer
     {
         foreach ($products as $product)
         {
-            $this->addNonDiscountCalculatedPriceToProduct($products);
+            $this->addNonDiscountCalculatedPriceToProduct($product);
         }
     }
 
@@ -56,7 +56,13 @@ class ConsumerProductComposer extends ProductComposer
      */
     private function addNonDiscountCalculatedPriceToProduct(Product $product): void
     {
-        $product->calculated_price_no_discount = $this->price_calculator->calculateProductPriceWithoutDiscount($product);
+        $calculated_price_no_discount = $this->price_calculator->calculateProductPriceWithoutDiscount($product);
+
+        if ($calculated_price_no_discount > $product->calculated_price)
+        {
+            $product->calculated_price_no_discount = $calculated_price_no_discount;
+            $product->display_no_discount_price = true;
+        }
     }
 
     /**
