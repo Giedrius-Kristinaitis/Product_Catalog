@@ -29,6 +29,15 @@ class Product extends Model
         'name', 'description', 'image', 'enabled', 'sku', 'base_price', 'discount'
     ];
 
+    // any other than image file type for upload
+    protected static $fileFields = [
+        // make sure non-image files don't get uploaded
+        'image' => [
+            'auto_upload' => false,
+            'rules' => 'mimes:png,jpg,jpeg'
+        ]
+    ];
+
     /**
      * Gets the product's reviews
      *
