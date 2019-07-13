@@ -43,9 +43,8 @@
                     <td>{{ number_format($product->discount, 2) }} &euro;</td>
                     <td>{{ number_format($product->calculated_price, 2) }} &euro;</td>
                     <td>
-                        <form action="/product/{{ $product->id }}" method="POST">
+                        <form action="/product/{{ $product->id }}" method="GET">
                             @csrf
-                            @method('PUT')
 
                             <input class="btn btn-primary" role="button" type="submit" name="submit" value="Edit"/>
                         </form>
