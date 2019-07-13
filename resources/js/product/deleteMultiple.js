@@ -20,9 +20,12 @@ function deleteButtonCallback() {
  * @param productsToDelete
  */
 function sendDeleteRequest(productsToDelete) {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]');
+
     fetch(APP_URL + '/product/multiple', {
         method: 'DELETE',
         headers: {
+            'X-CSRF-TOKEN': csrfToken,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(productsToDelete)
