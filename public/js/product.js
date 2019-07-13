@@ -103,7 +103,6 @@ deleteButton.addEventListener('click', deleteButtonCallback);
 
 function deleteButtonCallback() {
   var productsToDelete = getProductsToDelete(checkboxes);
-  console.log(productsToDelete);
   sendDeleteRequest(productsToDelete);
 }
 /**
@@ -114,9 +113,11 @@ function deleteButtonCallback() {
 
 
 function sendDeleteRequest(productsToDelete) {
-  fetch(APP_URL + '/product/multiple', {
+  var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+  fetch('/product/multiple', {
     method: 'DELETE',
     headers: {
+      'X-CSRF-TOKEN': csrfToken,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(productsToDelete)
@@ -137,6 +138,7 @@ function sendDeleteRequest(productsToDelete) {
 
 function deletionRequestSucceeded() {
   location.reload(true);
+  alert('Product(-s) deleted successfully');
 }
 /**
  * Called when product deletion request fails

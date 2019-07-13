@@ -10,7 +10,6 @@ deleteButton.addEventListener('click', deleteButtonCallback);
  */
 function deleteButtonCallback() {
     const productsToDelete = getProductsToDelete(checkboxes);
-    console.log(productsToDelete);
     sendDeleteRequest(productsToDelete);
 }
 
@@ -20,9 +19,9 @@ function deleteButtonCallback() {
  * @param productsToDelete
  */
 function sendDeleteRequest(productsToDelete) {
-    const csrfToken = document.querySelector('meta[name="csrf-token"]');
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-    fetch(APP_URL + '/product/multiple', {
+    fetch('/product/multiple', {
         method: 'DELETE',
         headers: {
             'X-CSRF-TOKEN': csrfToken,
@@ -43,6 +42,7 @@ function sendDeleteRequest(productsToDelete) {
  */
 function deletionRequestSucceeded() {
     location.reload(true);
+    alert('Product(-s) deleted successfully');
 }
 
 /**
