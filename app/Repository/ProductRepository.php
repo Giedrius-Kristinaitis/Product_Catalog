@@ -34,4 +34,24 @@ class ProductRepository implements ProductRepositoryInterface
     {
         return Product::where('id', $id)->first()->reviews()->avg('rating');
     }
+
+    /**
+     * Deletes a product with the given id
+     *
+     * @param int $id
+     */
+    public function delete(int $id): void
+    {
+        Product::destroy($id);
+    }
+
+    /**
+     * Deletes multiple products
+     *
+     * @param array $ids
+     */
+    public function deleteMultiple(array $ids): void
+    {
+        Product::destroy($ids);
+    }
 }
