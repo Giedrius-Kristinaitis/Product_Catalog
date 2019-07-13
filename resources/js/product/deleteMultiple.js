@@ -111,12 +111,16 @@ function anyCheckboxChecked(checkboxes) {
  * Shows the product deletion button
  */
 function showDeleteButton() {
-    deleteButton.classList.remove('invisible');
+    if (deleteButton.classList.contains('invisible')) {
+        deleteButton.classList.remove('invisible');
+    }
 }
 
 /**
  * Hides the product deletion button
  */
 function hideDeleteButton() {
-    deleteButton.classList.add('invisible');
+    if (!deleteButton.classList.contains('invisible')) {
+        deleteButton.classList.add('invisible');
+    }
 }
