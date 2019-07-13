@@ -17,6 +17,17 @@ class ProductRepository implements ProductRepositoryInterface
     }
 
     /**
+     * Gets the product with the specified id
+     *
+     * @param $id
+     * @return Product
+     */
+    public function getById($id): Product
+    {
+        return Product::find($id);
+    }
+
+    /**
      * Creates a new product
      * @param array $data
      */
@@ -26,13 +37,24 @@ class ProductRepository implements ProductRepositoryInterface
     }
 
     /**
+     * Updates product
+     *
+     * @param int $id
+     * @param array $data
+     */
+    public function update(int $id, array $data): void
+    {
+        Product::findOrFail($id)->update($data);
+    }
+
+    /**
      * Gets product's rating
      * @param int $id
      * @return mixed
      */
     public function getRating(int $id)
     {
-        return Product::where('id', $id)->first()->reviews()->avg('rating');
+        return Product::findOrFail($id)->reviews()->avg('rating');
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Product;
 use Illuminate\Support\Collection;
 
 interface ProductRepositoryInterface
@@ -13,10 +14,26 @@ interface ProductRepositoryInterface
     public function all(): Collection;
 
     /**
+     * Gets the product with the specified id
+     *
+     * @param $id
+     * @return Product
+     */
+    public function getById($id): Product;
+
+    /**
      * Creates a new product
      * @param array $data
      */
     public function create(array $data): void;
+
+    /**
+     * Updates product
+     *
+     * @param int $id
+     * @param array $data
+     */
+    public function update(int $id, array $data): void;
 
     /**
      * Gets product's rating
