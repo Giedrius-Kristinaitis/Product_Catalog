@@ -2,11 +2,7 @@
 
 @section('content')
 <div class="container">
-    @if (\Illuminate\Support\Facades\Session::has('success'))
-        <div class="alert alert-success" role="alert">
-            {{ \Illuminate\Support\Facades\Session::get('success') }}
-        </div>
-    @endif
+    @include('alerts.success')
 
     <div class="row justify-content-center">
         <a class="btn btn-primary" href="{{ route('product.create') }}" role="button">Create product</a>
@@ -31,33 +27,7 @@
         </thead>
         <tbody>
             @foreach ($products as $product)
-                <tr>
-                    <td>
-                        <input product="{{ $product->id }}" type="checkbox" class="deletion-checkbox" />
-                    </td>
-                    <td><img src="{{ $product->image }}" alt="{{ $product->name }} icon" width="128"/></td>
-                    <td>{{ $product->name }}</td>
-                    <td>{{ $product->enabled ? 'Yes' : 'No' }}</td>
-                    <td>{{ $product->sku }}</td>
-                    <td>{{ number_format($product->base_price, 2) }} &euro;</td>
-                    <td>{{ number_format($product->discount, 2) }} &euro;</td>
-                    <td>{{ number_format($product->calculated_price, 2) }} &euro;</td>
-                    <td>
-                        <form action="/product/{{ $product->id }}" method="GET">
-                            @csrf
-
-                            <input class="btn btn-primary" role="button" type="submit" name="submit" value="Edit"/>
-                        </form>
-                    </td>
-                    <td>
-                        <form action="/product/{{ $product->id }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-
-                            <input class="btn btn-danger" role="button" type="submit" name="submit" value="Delete"/>
-                        </form>
-                    </td>
-                </tr>
+                @include('product.row', ['product' => $product])
             @endforeach
         </tbody>
     </table>
