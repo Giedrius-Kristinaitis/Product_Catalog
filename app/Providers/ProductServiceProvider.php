@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Product\Price\DiscountProvider;
+use App\Product\Price\DiscountProviderInterface;
 use App\Product\Price\PriceCalculator;
 use App\Product\Price\StrategyProductPriceCalculator;
 use App\Repository\ProductRepository;
@@ -26,6 +28,11 @@ class ProductServiceProvider extends ServiceProvider
         $this->app->bind(
             ProductRepositoryInterface::class,
             ProductRepository::class
+        );
+
+        $this->app->bind(
+            DiscountProviderInterface::class,
+            DiscountProvider::class
         );
     }
 }
