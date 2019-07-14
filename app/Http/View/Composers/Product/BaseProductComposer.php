@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\View\Composers;
+namespace App\Http\View\Composers\Product;
 
-use App\Http\View\Composers\Product\ProductComposerInterface;
+use App\Http\View\Composers\Product\Decorator\ProductComposerInterface;
 use App\Product\Price\PriceCalculator;
 use App\Repository\ProductRepositoryInterface;
 use App\Utils\Url\UrlGeneratorInterface;

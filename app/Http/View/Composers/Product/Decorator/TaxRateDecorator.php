@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\View\Composers\Product;
+namespace App\Http\View\Composers\Product\Decorator;
 
 use App\Product;
 use App\Settings\SettingProvider;

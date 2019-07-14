@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\View\Composers;
+namespace App\Http\View\Composers\Product;
 
-use App\Http\View\Composers\Product\CalculatedPriceDecorator;
-use App\Http\View\Composers\Product\CalculatedPriceWithoutDiscountDecorator;
-use App\Http\View\Composers\Product\ImageUrlDecorator;
-use App\Http\View\Composers\Product\ProductComposer;
-use App\Http\View\Composers\Product\ProductComposerInterface;
-use App\Http\View\Composers\Product\RatingDecorator;
+use App\Http\View\Composers\Product\Decorator\CalculatedPriceDecorator;
+use App\Http\View\Composers\Product\Decorator\CalculatedPriceWithoutDiscountDecorator;
+use App\Http\View\Composers\Product\Decorator\ImageUrlDecorator;
+use App\Http\View\Composers\Product\Decorator\ProductComposer;
+use App\Http\View\Composers\Product\Decorator\ProductComposerInterface;
+use App\Http\View\Composers\Product\Decorator\RatingDecorator;
 use App\Product\Price\PriceCalculator;
 use App\Repository\ProductRepositoryInterface;
 use App\Utils\Url\UrlGeneratorInterface;
