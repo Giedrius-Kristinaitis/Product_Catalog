@@ -22,7 +22,8 @@ class ProductServiceProvider extends ServiceProvider
     {
         $this->app->bind(PriceCalculator::class, function()
         {
-            return new StrategyProductPriceCalculator(new AppSettingProvider());
+            $setting_provider = new AppSettingProvider();
+            return new StrategyProductPriceCalculator($setting_provider, new DiscountProvider($setting_provider));
         });
 
         $this->app->bind(
