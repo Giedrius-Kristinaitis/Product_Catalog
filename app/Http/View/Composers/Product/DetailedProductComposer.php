@@ -8,10 +8,12 @@ use App\Http\View\Composers\Product\Decorator\CalculatedPriceWithoutDiscountDeco
 use App\Http\View\Composers\Product\Decorator\ImageUrlDecorator;
 use App\Http\View\Composers\Product\Decorator\ProductComposer;
 use App\Http\View\Composers\Product\Decorator\RatingDecorator;
+use App\Http\View\Composers\Product\Decorator\ReviewDecorator;
 use App\Http\View\Composers\Product\Decorator\TaxRateDecorator;
 use App\Product\Price\DiscountProviderInterface;
 use App\Product\Price\PriceCalculator;
 use App\Repository\ProductRepositoryInterface;
+use App\Repository\ReviewRepositoryInterface;
 use App\Settings\SettingProvider;
 use App\Utils\Url\UrlGeneratorInterface;
 use Illuminate\Http\Request;
@@ -57,6 +59,11 @@ class DetailedProductComposer
     protected $settings;
 
     /**
+     * @var ReviewRepositoryInterface
+     */
+    protected $review_repository;
+
+    /**
      * DetailedProductComposer constructor.
      *
      * @param Request $request
@@ -65,8 +72,9 @@ class DetailedProductComposer
      * @param UrlGeneratorInterface $url_generator
      * @param DiscountProviderInterface $discount_provider
      * @param SettingProvider $settings
+     * @param ReviewRepositoryInterface $review_repository
      */
-    public function __construct(Request $request, PriceCalculator $price_calculator, ProductRepositoryInterface $product_repository, UrlGeneratorInterface $url_generator, DiscountProviderInterface $discount_provider, SettingProvider $settings)
+    public function __construct(Request $request, PriceCalculator $price_calculator, ProductRepositoryInterface $product_repository, UrlGeneratorInterface $url_generator, DiscountProviderInterface $discount_provider, SettingProvider $settings, ReviewRepositoryInterface $review_repository)
     {
         $this->request = $request;
         $this->price_calculator = $price_calculator;
@@ -74,6 +82,7 @@ class DetailedProductComposer
         $this->url_generator = $url_generator;
         $this->discount_provider = $discount_provider;
         $this->settings = $settings;
+        $this->review_repository = $review_repository;
     }
 
     /**
@@ -92,7 +101,10 @@ class DetailedProductComposer
                     new AppliedDiscountDecorator(
                         new RatingDecorator(
                             new TaxRateDecorator(
-                                new ProductComposer(),
+                                new ReviewDecorator(
+                                    new ProductComposer(),
+                                    $this->review_repository
+                                ),
                                 $this->settings
                             ),
                             $this->product_repository
