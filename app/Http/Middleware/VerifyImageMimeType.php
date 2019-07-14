@@ -16,11 +16,14 @@ class VerifyImageMimeType
      */
     public function handle(Request $request, Closure $next)
     {
-        $mime_type = $request->file('image')->getMimeType();
-
-        if ($mime_type != 'image/png' && $mime_type != 'image/jpeg')
+        if ($request->file('image') != NULL)
         {
-            return redirect()->back()->withErrors(['Bad image file']);
+            $mime_type = $request->file('image')->getMimeType();
+
+            if ($mime_type != 'image/png' && $mime_type != 'image/jpeg')
+            {
+                return redirect()->back()->withErrors(['Bad image file']);
+            }
         }
 
         return $next($request);
