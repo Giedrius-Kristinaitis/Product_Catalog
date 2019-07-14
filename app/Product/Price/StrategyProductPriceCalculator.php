@@ -63,7 +63,7 @@ class StrategyProductPriceCalculator implements PriceCalculator
         }
         else
         {
-            return new DiscountPriceCalculationStrategy($this->getDiscount($product));
+            return new DiscountPriceCalculationStrategy($this->getAppliedDiscount($product));
         }
     }
 
@@ -74,7 +74,7 @@ class StrategyProductPriceCalculator implements PriceCalculator
      * @param Product $product
      * @return float
      */
-    private function getDiscount(Product $product): float
+    public function getAppliedDiscount(Product $product): float
     {
         $global_discount = $this->settings->getSetting('global_discount');
 
