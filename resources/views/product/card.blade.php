@@ -3,14 +3,14 @@
         <img src="{{ $product->image }} " alt="{{ $product->name }} illustration" width="200"/>
     </div>
 
-    <a href="#"><h4>{{ $product->name }}</h4></a>
+    <a href="{{ route('product', $product->id) }}"><h4>{{ $product->name }}</h4></a>
 
     <p>SKU: {{ $product->sku }}</p>
 
     <p>
         {{ number_format($product->calculated_price, 2) }} &euro;
 
-        @if ($product->display_no_discount_price)
+        @if ($product->calculated_price_no_discount > $product->calculated_price)
             <s>{{ number_format($product->calculated_price_no_discount, 2) }} &euro;</s>
         @endif
     </p>
