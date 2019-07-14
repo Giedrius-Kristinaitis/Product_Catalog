@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="text-center">
+    <div class="container">
         <h1>{{ $product->name }}</h1>
 
         <img src="{{ $product->image }}" alt="{{ $product->name }} illustration" width="256" />
@@ -40,4 +40,28 @@
                 @endif
         </p>
     </div>
+
+    <div id="reviews" class="container">
+        @if ($product->product_reviews->count() > 0)
+            <h3>Reviews</h3>
+            <hr />
+
+            @foreach ($product->product_reviews as $review)
+                @include('product.review', ['review' => $review])
+            @endforeach
+        @else
+            <h3 id="no-reviews-text">This product has no reviews</h3>
+            <hr />
+        @endif
+    </div>
+
+    <div class="container">
+        @include('product.leavereview')
+    </div>
 @endsection
+
+<script>
+    var product_id = '{{ $product->id }}';
+</script>
+
+<script src="{{ asset('js/product/leaveReview.js') }}" defer></script>
