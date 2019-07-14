@@ -20,7 +20,7 @@
                 <th scope="col">Enabled</th>
                 <th scope="col">SKU</th>
                 <th scope="col">Base price</th>
-                <th scope="col">Discount</th>
+                <th scope="col">Individual discount</th>
                 <th scope="col">Calculated price</th>
                 <th scope="col" colspan="2"></th>
             </tr>
