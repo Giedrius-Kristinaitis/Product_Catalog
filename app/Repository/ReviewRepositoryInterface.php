@@ -7,9 +7,16 @@ use Illuminate\Support\Collection;
 interface ReviewRepositoryInterface
 {
     /**
-     * Gets all reviews by post id
-     * @param int $post_id
+     * Gets all reviews by product id
+     * @param int $product_id
      * @return Collection
      */
-    public function getAllByPostId(int $post_id): Collection;
+    public function getAllByProductId(int $product_id): Collection;
+
+    /**
+     * Saves a review into the database
+     *
+     * @param array $data
+     */
+    public function save(array $data): void;
 }
