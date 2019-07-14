@@ -81,7 +81,7 @@ class ProductController extends Controller
 
         $this->product_repository->create($request->all());
 
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard')->with('success', 'Successfully created');
     }
 
     /**
@@ -100,7 +100,7 @@ class ProductController extends Controller
 
         $this->product_repository->update($request_data['id'], $request_data);
 
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard')->with('success', 'Successfully updated');
     }
 
     /**
