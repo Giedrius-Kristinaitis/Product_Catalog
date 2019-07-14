@@ -137,6 +137,18 @@ class ProductController extends Controller
     }
 
     /**
+     * Shows page with single product's information
+     *
+     * @return Renderable
+     */
+    public function viewSingle(): Renderable
+    {
+        // don't need to do anything with product id here because
+        // view composer will take care of it
+        return view('product.product');
+    }
+
+    /**
      * Gets product ids from the given request's body
      *
      * @param Request $request
