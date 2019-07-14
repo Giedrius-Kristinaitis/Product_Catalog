@@ -43,6 +43,6 @@ class RatingDecorator extends ProductComposerDecorator
      */
     private function addRatingToProduct(Product $product): void
     {
-        $rating = $this->product_repository->getRating($product->id);
+        $product->rating = $this->product_repository->getRating($product->id);
     }
 }
