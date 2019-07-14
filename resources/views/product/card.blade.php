@@ -15,5 +15,11 @@
         @endif
     </p>
 
-    <p>Rating: {{ number_format($product->rating, 1) }}/5</p>
+    <p>Rating:
+        @if ($product->rating >= 1)
+            {{ number_format($product->rating, 1) }}/5
+        @else
+            no ratings
+        @endif
+    </p>
 </div>
