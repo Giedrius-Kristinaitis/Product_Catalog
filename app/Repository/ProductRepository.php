@@ -76,4 +76,22 @@ class ProductRepository implements ProductRepositoryInterface
     {
         Product::destroy($ids);
     }
+
+    /**
+     * Checks if the product with the specified id exists
+     *
+     * @param int $id
+     * @return bool
+     */
+    public function existsById(int $id): bool
+    {
+        $existing = Product::find($id);
+
+        if (!$existing)
+        {
+            return false;
+        }
+
+        return true;
+    }
 }

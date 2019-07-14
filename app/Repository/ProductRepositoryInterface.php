@@ -55,4 +55,12 @@ interface ProductRepositoryInterface
      * @param array $ids
      */
     public function deleteMultiple(array $ids): void;
+
+    /**
+     * Checks if the product with the specified id exists
+     *
+     * @param int $id
+     * @return bool
+     */
+    public function existsById(int $id): bool;
 }
