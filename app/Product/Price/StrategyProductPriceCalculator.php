@@ -36,7 +36,7 @@ class StrategyProductPriceCalculator implements PriceCalculator
      */
     public function calculateProductPriceWithoutDiscount(Product $product): float
     {
-        $calculation_strategy = new TaxedDiscountPriceCalculationStrategy(0, $this->settings->getSetting('tax_rate'));
+        $calculation_strategy = $this->getPriceCalculationStrategy(0);
 
         return $calculation_strategy->calculatePrice($product->base_price);
     }
@@ -49,29 +49,26 @@ class StrategyProductPriceCalculator implements PriceCalculator
      */
     public function calculateProductPrice(Product $product): float
     {
-        $calculation_strategy = $this->getPriceCalculationStrategy($product);
+        $calculation_strategy = $this->getPriceCalculationStrategy($this->discount_provider->getAppliedDiscount($product));
 
         return $calculation_strategy->calculatePrice($product->base_price);
     }
 
     /**
-     * Gets the correct price calculation strategy based on product's discount and app's settings
+     * Gets the correct price calculation strategy based on app's settings
      *
-     * @param Product $product
+     * @param float $discount
      * @return PriceCalculationStrategy
      */
-    private function getPriceCalculationStrategy(Product $product): PriceCalculationStrategy
+    private function getPriceCalculationStrategy(float $discount): PriceCalculationStrategy
     {
         if ($this->settings->getSetting('include_tax'))
         {
-            return new TaxedDiscountPriceCalculationStrategy(
-                $this->discount_provider->getAppliedDiscount($product),
-                $this->settings->getSetting('tax_rate'));
+            return new TaxedDiscountPriceCalculationStrategy($discount, $this->settings->getSetting('tax_rate'));
         }
         else
         {
-            return new DiscountPriceCalculationStrategy(
-                $this->discount_provider->getAppliedDiscount($product));
+            return new DiscountPriceCalculationStrategy($discount);
         }
     }
 }
