@@ -111,7 +111,7 @@ class ProductController extends Controller
      */
     public function viewAll(): Renderable
     {
-        return view('products');
+        return view('catalog');
     }
 
     /**
