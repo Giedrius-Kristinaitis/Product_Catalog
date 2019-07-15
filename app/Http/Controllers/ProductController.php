@@ -6,6 +6,7 @@ use App\Forms\Product\EditForm;
 use App\Repository\ProductRepositoryInterface;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 use Kris\LaravelFormBuilder\FormBuilder;
 use Kris\LaravelFormBuilder\FormBuilderTrait;
 use App\Forms\Product\CreateForm;
@@ -146,6 +147,19 @@ class ProductController extends Controller
         // don't need to do anything with product id here because
         // view composer will take care of it
         return view('product.product');
+    }
+
+    /**
+     * Gets product's rating
+     *
+     * @param int $id
+     * @return Response
+     */
+    public function getProductRating(int $id): Response
+    {
+        $rating = $this->product_repository->getRating($id);
+
+        return response($rating, 200)->header('Content-Type', 'text/plain');
     }
 
     /**

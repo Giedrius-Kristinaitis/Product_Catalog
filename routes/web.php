@@ -36,3 +36,5 @@ Route::middleware(['auth', 'verify.admin'])->group(function () {
 Route::get('/product/{id}', 'ProductController@viewSingle')->name('product');
 
 Route::post('/review', 'ReviewController@store');
+
+Route::get('/product/rating/{id}', 'ProductController@getProductRating');
