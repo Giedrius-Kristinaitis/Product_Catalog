@@ -35,7 +35,7 @@ function reviewButtonCallback() {
     extractReviewData();
 
     if (validateReviewData(reviewerName, rating, reviewContent)) {
-        submitReview();
+        submitReview(reviewerName, reviewContent, rating, product_id);
     } else {
         alert('Please fill all fields with valid data before submitting the review');
     }
@@ -97,7 +97,7 @@ function extractReviewData() {
 /**
  * Submits the entered review to the server
  */
-function submitReview() {
+function submitReview(reviewerName, reviewContent, rating, product_id) {
     const requestBody = formRequestBody(reviewerName, reviewContent, rating, product_id);
 
     fetch('/review', {
