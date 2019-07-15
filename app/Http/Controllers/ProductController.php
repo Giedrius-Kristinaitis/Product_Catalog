@@ -159,7 +159,8 @@ class ProductController extends Controller
     {
         $rating = $this->product_repository->getRating($id);
 
-        return response($rating, 200)->header('Content-Type', 'text/plain');
+        return response(number_format($rating, 1), 200)
+                    ->header('Content-Type', 'text/plain');
     }
 
     /**
