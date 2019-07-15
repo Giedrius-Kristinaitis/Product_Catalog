@@ -9,5 +9,7 @@
                 @include('product.card', ['product' => $product])
             @endforeach
         </div>
+
+        {{ $products->links() }}
     </div>
 @endsection

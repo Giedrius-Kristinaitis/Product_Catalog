@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Product;
 use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProductRepository implements ProductRepositoryInterface
 {
@@ -14,6 +15,17 @@ class ProductRepository implements ProductRepositoryInterface
     public function all(): Collection
     {
         return Product::all();
+    }
+
+    /**
+     * Gets a page of products
+     *
+     * @param int $size
+     * @return LengthAwarePaginator
+     */
+    public function page(int $size): LengthAwarePaginator
+    {
+        return Product::paginate($size);
     }
 
     /**

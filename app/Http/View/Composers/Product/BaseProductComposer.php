@@ -6,7 +6,7 @@ use App\Http\View\Composers\Product\Decorator\ProductComposerInterface;
 use App\Product\Price\PriceCalculator;
 use App\Repository\ProductRepositoryInterface;
 use App\Utils\Url\UrlGeneratorInterface;
-use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\View\View;
 
 abstract class BaseProductComposer
@@ -48,7 +48,7 @@ abstract class BaseProductComposer
      */
     public final function compose(View $view): void
     {
-        $products = $this->product_repository->all();
+        $products = $this->product_repository->page(9);
 
         $this->applyComposerToProducts($this->getComposer(), $products);
 
@@ -65,9 +65,9 @@ abstract class BaseProductComposer
      * Applies the given product composer to the given products
      *
      * @param ProductComposerInterface $composer
-     * @param Collection $products
+     * @param LengthAwarePaginator $products
      */
-    private function applyComposerToProducts(ProductComposerInterface $composer, Collection $products): void
+    private function applyComposerToProducts(ProductComposerInterface $composer, LengthAwarePaginator $products): void
     {
         foreach ($products as $product)
         {

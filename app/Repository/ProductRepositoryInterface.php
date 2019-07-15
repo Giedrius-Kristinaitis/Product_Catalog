@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Product;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 interface ProductRepositoryInterface
@@ -12,6 +13,14 @@ interface ProductRepositoryInterface
      * @return Collection
      */
     public function all(): Collection;
+
+    /**
+     * Gets a page of products
+     *
+     * @param int $size
+     * @return LengthAwarePaginator
+     */
+    public function page(int $size): LengthAwarePaginator;
 
     /**
      * Gets the product with the specified id
