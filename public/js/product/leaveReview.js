@@ -99,7 +99,8 @@ var reviewerNameInput;
 var reviewContentInput;
 var ratingInput;
 var noReviewsText;
-var reviewList; // review information
+var reviewList;
+var ratingText; // review information
 
 var reviewerName;
 var reviewContent;
@@ -119,6 +120,7 @@ function initializeDOMElements() {
   ratingInput = document.getElementById('rating');
   noReviewsText = document.getElementById('no-reviews-text');
   reviewList = document.getElementById('reviews');
+  ratingText = document.getElementById('rating-text');
 }
 /**
  * Gets called when the 'Leave review' button is clicked
@@ -129,7 +131,7 @@ function reviewButtonCallback() {
   extractReviewData();
 
   if (validateReviewData(reviewerName, rating, reviewContent)) {
-    submitReview();
+    submitReview(reviewerName, reviewContent, rating, product_id);
   } else {
     alert('Please fill all fields with valid data before submitting the review');
   }
@@ -197,7 +199,7 @@ function extractReviewData() {
  */
 
 
-function submitReview() {
+function submitReview(reviewerName, reviewContent, rating, product_id) {
   var requestBody = formRequestBody(reviewerName, reviewContent, rating, product_id);
   fetch('/review', {
     method: 'POST',
@@ -236,6 +238,7 @@ function formRequestBody(reviewerName, reviewContent, rating, product_id) {
 function successfulSubmit() {
   removeNoReviewsText();
   addReviewToReviewsList();
+  updateAverageProductRating(product_id);
   alert('Review submitted');
 }
 /**
@@ -312,6 +315,33 @@ function removeNoReviewsText() {
 
 function failedSubmit() {
   alert('An error occurred while submitting the review');
+}
+/**
+ * Updates the average rating that is displayed next to the product
+ */
+
+
+function updateAverageProductRating(product_id) {
+  fetch('/product/rating/' + product_id, {
+    method: 'GET',
+    headers: {
+      'Accept': 'text/plain'
+    }
+  }).then(function (result) {
+    return result.text();
+  }).then(function (data) {
+    return changeRatingText(data);
+  });
+}
+/**
+ * Changes the product's rating text to match the new rating
+ *
+ * @param rating
+ */
+
+
+function changeRatingText(rating) {
+  ratingText.innerHTML = 'Rating: ' + rating + '/5';
 }
 
 /***/ }),

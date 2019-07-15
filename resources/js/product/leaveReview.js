@@ -5,6 +5,7 @@ let reviewContentInput;
 let ratingInput;
 let noReviewsText;
 let reviewList;
+let ratingText;
 
 // review information
 let reviewerName;
@@ -26,6 +27,7 @@ function initializeDOMElements() {
     ratingInput = document.getElementById('rating');
     noReviewsText = document.getElementById('no-reviews-text');
     reviewList = document.getElementById('reviews');
+    ratingText = document.getElementById('rating-text');
 }
 
 /**
@@ -133,6 +135,7 @@ function formRequestBody(reviewerName, reviewContent, rating, product_id) {
 function successfulSubmit() {
     removeNoReviewsText();
     addReviewToReviewsList();
+    updateAverageProductRating(product_id);
 
     alert('Review submitted');
 }
@@ -213,4 +216,27 @@ function removeNoReviewsText() {
  */
 function failedSubmit() {
     alert('An error occurred while submitting the review');
+}
+
+/**
+ * Updates the average rating that is displayed next to the product
+ */
+function updateAverageProductRating(product_id) {
+    fetch('/product/rating/' + product_id, {
+        method: 'GET',
+        headers: {
+            'Accept': 'text/plain'
+        }
+    })
+        .then(result => result.text())
+        .then(data => changeRatingText(data));
+}
+
+/**
+ * Changes the product's rating text to match the new rating
+ *
+ * @param rating
+ */
+function changeRatingText(rating) {
+    ratingText.innerHTML = 'Rating: ' + rating + '/5';
 }

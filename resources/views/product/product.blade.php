@@ -32,7 +32,7 @@
             @endif
         </p>
 
-        <p>Rating:
+        <p id="rating-text">Rating:
                 @if ($product->rating >= 1)
                     {{ number_format($product->rating, 1) }}/5
                 @else
