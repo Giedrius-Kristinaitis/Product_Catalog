@@ -6,7 +6,6 @@
 /.idea
 /.vagrant
 /.ssh
-.env
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
