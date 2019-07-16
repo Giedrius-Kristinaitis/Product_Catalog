@@ -20,6 +20,14 @@ email: admin@admin.com
 password: password
 ```
 
+Third party packages used:
+
+App settings: https://github.com/qcod/laravel-app-settings
+
+Image uploading: https://github.com/qcod/laravel-imageup
+
+Form building: https://github.com/kristijanhusak/laravel-form-builder
+
 
 ## Made with:
 

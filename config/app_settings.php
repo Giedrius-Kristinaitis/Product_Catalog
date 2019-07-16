@@ -14,12 +14,13 @@ return [
                     'type' => 'text',
                     'label' => 'Tax rate (%)', // label for input
                     // optional properties
-                    'min' => 0,
-                    'max' => 100,
+                    'accessor' => function ($value, $key) {
+                        return max(0, floatval($value));
+                    },
                     'placeholder' => 'Tax rate (%)', // placeholder for input
                     'class' => 'form-control', // override global input_class
                     'style' => '', // any inline styles
-                    'rules' => 'required|min:0|max:100', // validation rules for this input
+                    'rules' => 'required', // validation rules for this input
                     'value' => '21', // any default value
                     'hint' => 'You can set the product tax rate here' // help block text for input
                 ],
@@ -31,7 +32,8 @@ return [
                     // optional properties
                     'class' => 'form-control', // override global input_class
                     'style' => '', // any inline styles
-                    'value' => '1', // any default value
+                    'data_type' => 'boolean',
+                    'value' => 'true', // any default value
                 ],
 
                 [
@@ -39,11 +41,13 @@ return [
                     'type' => 'text',
                     'label' => 'Global discount for all products', // label for input
                     // optional properties
-                    'min' => 0,
+                    'accessor' => function ($value, $key) {
+                        return max(0, floatval($value));
+                    },
                     'placeholder' => 'Global discount for all products', // placeholder for input
                     'class' => 'form-control', // override global input_class
                     'style' => '', // any inline styles
-                    'rules' => 'required|min:0', // validation rules for this input
+                    'rules' => 'required', // validation rules for this input
                     'value' => '0', // any default value
                     'hint' => 'You can set the global product discount here' // help block text for input
                 ],
@@ -53,9 +57,10 @@ return [
                     'type' => 'checkbox',
                     'label' => 'Global discount expressed in percent', // label for input
                     // optional properties
+                    'data_type' => 'boolean',
                     'class' => 'form-control', // override global input_class
                     'style' => '', // any inline styles
-                    'value' => '0', // any default value
+                    'value' => 'false', // any default value
                     'hint' => 'If unchecked, then the global discount value is a currency value'
                 ]
             ]
@@ -69,7 +74,7 @@ return [
     'middleware' => ['auth', 'verify.admin'],
 
     // View settings
-    'setting_page_view' => 'app_settings::settings_page',
+    'setting_page_view' => 'settings',
     'flash_partial' => 'app_settings::_flash',
 
     // Setting section class setting
