@@ -2,14 +2,18 @@
 
 @section('content')
     <div class="container">
-        <h3>Products</h3>
+        @if ($products->count() > 0)
+            <h3>Products</h3>
 
-        <div class="row">
-            @foreach ($products as $product)
-                @include('product.card', ['product' => $product])
-            @endforeach
-        </div>
+            <div class="row">
+                @foreach ($products as $product)
+                    @include('product.card', ['product' => $product])
+                @endforeach
+            </div>
 
-        {{ $products->links() }}
+            {{ $products->links() }}
+        @else
+            <h3>No products</h3>
+        @endif
     </div>
 @endsection
