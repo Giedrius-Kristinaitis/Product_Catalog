@@ -2,7 +2,7 @@
 
 This is a simple product catalog application which has two parts: admin panel and product list.
 
-An admin can create/edit/delete products and other users can view them.
+An admin can create/edit/delete products and other users can view them and submit reviews.
 
 To test the application configure your database connection.
 Then make sure to run database migrations:
